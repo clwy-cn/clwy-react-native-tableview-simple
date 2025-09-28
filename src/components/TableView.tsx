@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import { THEMES, ThemeContext, THEME_APPEARANCE } from './Theme';
 import { StringWithAutocomplete } from '../../CustomTypes';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 export interface TableViewInterface {
   children?: React.ReactNode;
@@ -19,11 +20,11 @@ export interface TableViewInterface {
 }
 
 const TableView: React.FC<TableViewInterface> = ({
-  children,
-  appearance = 'auto',
-  customAppearances,
-  style,
-}: TableViewInterface) => {
+                                                   children,
+                                                   appearance = 'auto',
+                                                   customAppearances,
+                                                   style,
+                                                 }: TableViewInterface) => {
   let themeMode: THEME_APPEARANCE = THEMES?.appearances?.light;
   const systemColorScheme = useColorScheme();
   if (
@@ -42,7 +43,9 @@ const TableView: React.FC<TableViewInterface> = ({
   }
   return (
     <ThemeContext.Provider value={themeMode}>
-      <View style={[styles.tableView, style]}>{children}</View>
+      <SafeAreaProvider>
+        <View style={[styles.tableView, style]}>{children}</View>
+      </SafeAreaProvider>
     </ThemeContext.Provider>
   );
 };
