@@ -1,13 +1,13 @@
 import React, { useContext, useState } from 'react';
 import {
   Platform,
-  SafeAreaView,
   StyleSheet,
   Text,
   View,
   TextStyle,
   ViewStyle,
 } from 'react-native';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
 import Separator from './Separator';
 import { CellInterface } from './Cell';
@@ -37,31 +37,31 @@ export interface SectionInterface {
 }
 
 const Section: React.FC<SectionInterface> = ({
-  allowFontScaling = true,
-  children,
-  footerComponent,
-  headerComponent,
-  footer,
-  footerTextColor,
-  footerTextStyle = {},
-  header,
-  headerTextColor,
-  headerTextStyle = {},
-  hideSeparator = false,
-  hideSurroundingSeparators = false,
-  roundedCorners = false,
-  sectionPaddingBottom = 15,
-  sectionPaddingTop = 15,
-  sectionTintColor,
-  separatorInsetLeft = 15,
-  separatorInsetRight = 0,
-  separatorTintColor,
-  withSafeAreaView = Platform.OS === 'ios'
-    ? parseInt(`${Platform.Version}`, 10) <= 10
-      ? false
-      : true
-    : true,
-}: SectionInterface) => {
+                                               allowFontScaling = true,
+                                               children,
+                                               footerComponent,
+                                               headerComponent,
+                                               footer,
+                                               footerTextColor,
+                                               footerTextStyle = {},
+                                               header,
+                                               headerTextColor,
+                                               headerTextStyle = {},
+                                               hideSeparator = false,
+                                               hideSurroundingSeparators = false,
+                                               roundedCorners = false,
+                                               sectionPaddingBottom = 15,
+                                               sectionPaddingTop = 15,
+                                               sectionTintColor,
+                                               separatorInsetLeft = 15,
+                                               separatorInsetRight = 0,
+                                               separatorTintColor,
+                                               withSafeAreaView = Platform.OS === 'ios'
+                                                 ? parseInt(`${Platform.Version}`, 10) <= 10
+                                                   ? false
+                                                   : true
+                                                 : true,
+                                             }: SectionInterface) => {
   const theme = useContext(ThemeContext);
   const [highlightedRowIndex, setHighlightedRowIndex] = useState<number>();
 
@@ -172,13 +172,15 @@ const Section: React.FC<SectionInterface> = ({
     if (header && withSafeAreaView) {
       return (
         <View style={styles.sectionheader}>
-          <SafeAreaView>
-            <Text
-              allowFontScaling={allowFontScaling}
-              style={localStyles.sectionheaderText}>
-              {header}
-            </Text>
-          </SafeAreaView>
+          <SafeAreaProvider>
+            <SafeAreaView>
+              <Text
+                allowFontScaling={allowFontScaling}
+                style={localStyles.sectionheaderText}>
+                {header}
+              </Text>
+            </SafeAreaView>
+          </SafeAreaProvider>
         </View>
       );
     }

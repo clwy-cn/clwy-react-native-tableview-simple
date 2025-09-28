@@ -1,12 +1,12 @@
 import React, { useContext } from 'react';
 import {
   Platform,
-  SafeAreaView,
   StyleSheet,
   View,
   ViewStyle,
 } from 'react-native';
 import { ThemeContext } from './Theme';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
 export interface SeparatorInterface {
   backgroundColor?: ViewStyle['backgroundColor'];
@@ -18,17 +18,17 @@ export interface SeparatorInterface {
 }
 
 const Separator: React.FC<SeparatorInterface> = ({
-  backgroundColor,
-  tintColor,
-  isHidden = false,
-  insetLeft = 15,
-  insetRight = 0,
-  withSafeAreaView = Platform.OS === 'ios'
-    ? parseInt(`${Platform.Version}`, 10) <= 10
-      ? false
-      : true
-    : true,
-}) => {
+                                                   backgroundColor,
+                                                   tintColor,
+                                                   isHidden = false,
+                                                   insetLeft = 15,
+                                                   insetRight = 0,
+                                                   withSafeAreaView = Platform.OS === 'ios'
+                                                     ? parseInt(`${Platform.Version}`, 10) <= 10
+                                                       ? false
+                                                       : true
+                                                     : true,
+                                                 }) => {
   const theme = useContext(ThemeContext);
   const localStyles = {
     separator: [
@@ -49,9 +49,11 @@ const Separator: React.FC<SeparatorInterface> = ({
 
   if (withSafeAreaView) {
     return (
-      <SafeAreaView style={localStyles.separator}>
-        <View style={localStyles.separatorInner} />
-      </SafeAreaView>
+      <SafeAreaProvider>
+        <SafeAreaView style={localStyles.separator}>
+          <View style={localStyles.separatorInner} />
+        </SafeAreaView>
+      </SafeAreaProvider>
     );
   }
   return (

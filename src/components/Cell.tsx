@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import {
   PixelRatio,
   Platform,
-  SafeAreaView,
   StyleSheet,
   Text,
   TouchableHighlight,
@@ -15,6 +14,7 @@ import {
   ImageProps,
 } from 'react-native';
 import { ThemeContext } from './Theme';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
 export interface CellInterface {
   accessory?:
@@ -45,8 +45,11 @@ export interface CellInterface {
   onPress?: () => void | false;
   onLongPress?: () => void | false;
   onPressDetailAccessory?: () => void | false;
+
   onUnHighlightRow?(): void;
+
   onHighlightRow?(): void;
+
   leftDetailColor?: TextStyle['color'];
   rightDetailColor?: TextStyle['color'];
   subtitleColor?: TextStyle['color'];
@@ -61,46 +64,46 @@ export interface CellInterface {
 }
 
 const Cell: React.FC<CellInterface> = ({
-  accessory = false,
-  accessoryColor,
-  accessoryColorDisclosureIndicator,
-  allowFontScaling = true,
-  backgroundColor,
-  cellStyle = 'Basic',
-  cellContentView,
-  cellImageView,
-  cellAccessoryView,
-  children,
-  contentContainerStyle = {},
-  detail,
-  detailTextStyle = {},
-  detailTextProps = {},
-  disableImageResize = false,
-  highlightActiveOpacity = 0.8,
-  highlightUnderlayColor,
-  image,
-  isDisabled = false,
-  onPress,
-  onLongPress,
-  onPressDetailAccessory,
-  onHighlightRow,
-  onUnHighlightRow,
-  leftDetailColor,
-  rightDetailColor,
-  subtitleColor,
-  subtitleTextStyle = {},
-  testID,
-  title,
-  titleTextProps = {},
-  titleTextStyle = {},
-  titleTextStyleDisabled = {},
-  titleTextColor,
-  withSafeAreaView = Platform.OS === 'ios'
-    ? parseInt(`${Platform.Version}`, 10) <= 10
-      ? false
-      : true
-    : true,
-}: CellInterface) => {
+                                         accessory = false,
+                                         accessoryColor,
+                                         accessoryColorDisclosureIndicator,
+                                         allowFontScaling = true,
+                                         backgroundColor,
+                                         cellStyle = 'Basic',
+                                         cellContentView,
+                                         cellImageView,
+                                         cellAccessoryView,
+                                         children,
+                                         contentContainerStyle = {},
+                                         detail,
+                                         detailTextStyle = {},
+                                         detailTextProps = {},
+                                         disableImageResize = false,
+                                         highlightActiveOpacity = 0.8,
+                                         highlightUnderlayColor,
+                                         image,
+                                         isDisabled = false,
+                                         onPress,
+                                         onLongPress,
+                                         onPressDetailAccessory,
+                                         onHighlightRow,
+                                         onUnHighlightRow,
+                                         leftDetailColor,
+                                         rightDetailColor,
+                                         subtitleColor,
+                                         subtitleTextStyle = {},
+                                         testID,
+                                         title,
+                                         titleTextProps = {},
+                                         titleTextStyle = {},
+                                         titleTextStyleDisabled = {},
+                                         titleTextColor,
+                                         withSafeAreaView = Platform.OS === 'ios'
+                                           ? parseInt(`${Platform.Version}`, 10) <= 10
+                                             ? false
+                                             : true
+                                           : true,
+                                       }: CellInterface) => {
   const theme = useContext(ThemeContext);
 
   const isPressable = !!onPress || !!onLongPress;
@@ -119,10 +122,10 @@ const Cell: React.FC<CellInterface> = ({
     cellTitle: isDisabled
       ? [styles.cellTitle, styles.cellTextDisabled, titleTextStyleDisabled]
       : [
-          styles.cellTitle,
-          { color: titleTextColor || theme.colors.body },
-          titleTextStyle,
-        ],
+        styles.cellTitle,
+        { color: titleTextColor || theme.colors.body },
+        titleTextStyle,
+      ],
     cellLeftDetail: [
       styles.cellLeftDetail,
       {
@@ -133,9 +136,9 @@ const Cell: React.FC<CellInterface> = ({
     cellLeftDetailTitle: isDisabled
       ? [styles.cellLeftDetailTitle, styles.cellTextDisabled]
       : [
-          styles.cellLeftDetailTitle,
-          { color: titleTextColor || theme.colors.body },
-        ],
+        styles.cellLeftDetailTitle,
+        { color: titleTextColor || theme.colors.body },
+      ],
     cellRightDetail: [
       styles.cellRightDetail,
       {
@@ -391,18 +394,20 @@ const Cell: React.FC<CellInterface> = ({
    * @return {View} Complete View with cell elements
    */
   const renderCellWithSafeAreaView = (): React.ReactNode => (
-    <SafeAreaView
-      style={[
-        localStyles.cellBackgroundColor,
-        localStyles.cellSafeAreaContainer,
-      ]}>
-      <View style={localStyles.cell}>
-        {cellImageView || renderImageView()}
-        {cellContentView || renderCellContentView()}
-        {cellAccessoryView || renderAccessoryView()}
-      </View>
-      {children}
-    </SafeAreaView>
+    <SafeAreaProvider>
+      <SafeAreaView
+        style={[
+          localStyles.cellBackgroundColor,
+          localStyles.cellSafeAreaContainer,
+        ]}>
+        <View style={localStyles.cell}>
+          {cellImageView || renderImageView()}
+          {cellContentView || renderCellContentView()}
+          {cellAccessoryView || renderAccessoryView()}
+        </View>
+        {children}
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 
   if (isPressable && !isDisabled) {
