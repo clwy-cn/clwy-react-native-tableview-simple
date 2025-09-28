@@ -8,7 +8,6 @@ import {
 } from 'react-native';
 import { THEMES, ThemeContext, THEME_APPEARANCE } from './Theme';
 import { StringWithAutocomplete } from '../../CustomTypes';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 export interface TableViewInterface {
   children?: React.ReactNode;
@@ -43,9 +42,7 @@ const TableView: React.FC<TableViewInterface> = ({
   }
   return (
     <ThemeContext.Provider value={themeMode}>
-      <SafeAreaProvider>
-        <View style={[styles.tableView, style]}>{children}</View>
-      </SafeAreaProvider>
+      <View style={[styles.tableView, style]}>{children}</View>
     </ThemeContext.Provider>
   );
 };
