@@ -1,7 +1,7 @@
 {
-  "name": "clwy-react-native-tableview-simple",
+  "name": "react-native-tableview-simple",
   "description": "React Native component for TableView made with pure CSS",
-  "homepage": "https://github.com/clwy-cn/clwy-react-native-tableview-simple",
+  "homepage": "https://github.com/Purii/react-native-tableview-simple",
   "version": "4.5.0",
   "author": "Patrick Böder <hello@patrickpuritscher.com>",
   "scripts": {
