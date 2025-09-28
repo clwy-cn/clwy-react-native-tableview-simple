@@ -14,7 +14,7 @@ import {
   ImageProps,
 } from 'react-native';
 import { ThemeContext } from './Theme';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
 export interface CellInterface {
   accessory?:
@@ -394,18 +394,20 @@ const Cell: React.FC<CellInterface> = ({
    * @return {View} Complete View with cell elements
    */
   const renderCellWithSafeAreaView = (): React.ReactNode => (
-    <SafeAreaView
-      style={[
-        localStyles.cellBackgroundColor,
-        localStyles.cellSafeAreaContainer,
-      ]}>
-      <View style={localStyles.cell}>
-        {cellImageView || renderImageView()}
-        {cellContentView || renderCellContentView()}
-        {cellAccessoryView || renderAccessoryView()}
-      </View>
-      {children}
-    </SafeAreaView>
+    <SafeAreaProvider>
+      <SafeAreaView
+        style={[
+          localStyles.cellBackgroundColor,
+          localStyles.cellSafeAreaContainer,
+        ]}>
+        <View style={localStyles.cell}>
+          {cellImageView || renderImageView()}
+          {cellContentView || renderCellContentView()}
+          {cellAccessoryView || renderAccessoryView()}
+        </View>
+        {children}
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 
   if (isPressable && !isDisabled) {

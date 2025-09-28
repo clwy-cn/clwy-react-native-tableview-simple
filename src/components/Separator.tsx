@@ -6,7 +6,7 @@ import {
   ViewStyle,
 } from 'react-native';
 import { ThemeContext } from './Theme';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
 export interface SeparatorInterface {
   backgroundColor?: ViewStyle['backgroundColor'];
@@ -49,9 +49,11 @@ const Separator: React.FC<SeparatorInterface> = ({
 
   if (withSafeAreaView) {
     return (
-      <SafeAreaView style={localStyles.separator}>
-        <View style={localStyles.separatorInner} />
-      </SafeAreaView>
+      <SafeAreaProvider>
+        <SafeAreaView style={localStyles.separator}>
+          <View style={localStyles.separatorInner} />
+        </SafeAreaView>
+      </SafeAreaProvider>
     );
   }
   return (

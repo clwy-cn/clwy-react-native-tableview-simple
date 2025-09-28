@@ -7,7 +7,7 @@ import {
   TextStyle,
   ViewStyle,
 } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
 import Separator from './Separator';
 import { CellInterface } from './Cell';
@@ -172,13 +172,15 @@ const Section: React.FC<SectionInterface> = ({
     if (header && withSafeAreaView) {
       return (
         <View style={styles.sectionheader}>
-          <SafeAreaView>
-            <Text
-              allowFontScaling={allowFontScaling}
-              style={localStyles.sectionheaderText}>
-              {header}
-            </Text>
-          </SafeAreaView>
+          <SafeAreaProvider>
+            <SafeAreaView>
+              <Text
+                allowFontScaling={allowFontScaling}
+                style={localStyles.sectionheaderText}>
+                {header}
+              </Text>
+            </SafeAreaView>
+          </SafeAreaProvider>
         </View>
       );
     }
@@ -203,13 +205,15 @@ const Section: React.FC<SectionInterface> = ({
     if (footer && withSafeAreaView) {
       return (
         <View style={styles.sectionfooter}>
-          <SafeAreaView>
-            <Text
-              allowFontScaling={allowFontScaling}
-              style={localStyles.sectionfooterText}>
-              {footer}
-            </Text>
-          </SafeAreaView>
+          <SafeAreaProvider>
+            <SafeAreaView>
+              <Text
+                allowFontScaling={allowFontScaling}
+                style={localStyles.sectionfooterText}>
+                {footer}
+              </Text>
+            </SafeAreaView>
+          </SafeAreaProvider>
         </View>
       );
     }
