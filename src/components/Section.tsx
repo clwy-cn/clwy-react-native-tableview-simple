@@ -260,7 +260,7 @@ const styles = StyleSheet.create({
   section: {},
   sectionChildren: {},
   sectionChildrenRoundedCorners: {
-    borderRadius: 10,
+    borderRadius: 30,
     overflow: 'hidden',
   },
   sectionheader: {
