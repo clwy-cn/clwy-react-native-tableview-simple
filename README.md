@@ -35,16 +35,13 @@ Have a look at the [examples below](https://github.com/Purii/react-native-tablev
 1.  _Install as dependency:_
 
 ```sh
-// yarn
-yarn add react-native-tableview-simple
-// or npm
-npm i react-native-tableview-simple --S
+npm i clwy-react-native-tableview-simple
 ```
 
 2.  _Add needed components:_
 
 ```javascript
-import { Cell, Section, TableView } from 'react-native-tableview-simple';
+import { Cell, Section, TableView } from 'clwy-react-native-tableview-simple';
 ```
 
 ## Extensible
@@ -185,7 +182,7 @@ import {
   Cell,
   Section,
   TableView,
-} from 'react-native-tableview-simple';
+} from 'clwy-react-native-tableview-simple';
 
 const CellVariant = (props) => (
   <Cell
@@ -230,7 +227,7 @@ import {
   Cell,
   Section,
   TableView,
-} from 'react-native-tableview-simple';
+} from 'clwy-react-native-tableview-simple';
 
 
 const cellPropsVariant = {
@@ -347,7 +344,7 @@ To run the example project, follow these steps:
 
 import React, { Component } from 'react';
 import { AppRegistry, ScrollView, StyleSheet, Text, View } from 'react-native';
-import { Cell, Section, TableView } from 'react-native-tableview-simple';
+import { Cell, Section, TableView } from 'clwy-react-native-tableview-simple';
 
 export default class App extends Component<{}> {
   render() {
@@ -425,7 +422,7 @@ import {
   TextInput,
   View,
 } from 'react-native';
-import { Cell, Section, TableView } from 'react-native-tableview-simple';
+import { Cell, Section, TableView } from 'clwy-react-native-tableview-simple';
 
 export default class App extends Component<{}> {
   render() {
@@ -692,7 +689,7 @@ Be aware of the prop [`keyboardShouldPersistTaps`](https://facebook.github.io/re
 import React from 'react';
 import { FlatList } from 'react-native';
 
-import { Cell, Separator, TableView } from 'react-native-tableview-simple';
+import { Cell, Separator, TableView } from 'clwy-react-native-tableview-simple';
 
 const data = [
   { id: 1, title: '1' },
